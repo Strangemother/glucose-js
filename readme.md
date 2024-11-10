@@ -6,7 +6,7 @@ Late-stage class augmentation and property injection.
 
 </div>
 
-`Glucose.js` is an ES6 suite of tools to help withclass composition and object management. Streamline creating and managing classes, methods, and properties, injecting functions dynamically.
+`Glucose.js` is an ES6 suite of tools to help with class composition and object management. Streamline creating and managing classes, methods, and properties, injecting functions dynamically.
 
 ## Table of Contents
 
@@ -27,24 +27,26 @@ Late-stage class augmentation and property injection.
 
 ---
 
+
+
 ```js
 // Assume Glucose is already included and available as 'Glucose'
 
-// 1. Define a simple class
+/* 1. Define a simple class */
 class Animal {
   speak() {
     return 'Moo Woof Meow';
   }
 }
 
-// 2. Install the class into Glucose
+/* 2. Install the class into Glucose */
 Glucose.head.install(Animal);
 
-// 3. Create an instance of the class
+/* 3. Create an instance of the class */
 const animal = new Animal();
 console.log(animal.speak()); // Output: 'Moo Woof Meow'
 
-// 4. Dynamically add new properties and methods to the class
+/* 4. Dynamically add new properties and methods to the class */
 Glucose.head.mixin('Animal', {
   type: {
     value: 'Mammal',
@@ -57,11 +59,11 @@ Glucose.head.mixin('Animal', {
   },
 });
 
-// 5. Existing instances now have the new properties and methods
+/* 5. Existing instances now have the new properties and methods */
 console.log(animal.type);    // Output: 'Mammal'
 console.log(animal.speak()); // Output: 'I am a Mammal'
 
-// 6. New instances also have the new properties and methods
+/* 6. New instances also have the new properties and methods */
 const anotherAnimal = new Animal();
 console.log(anotherAnimal.type);    // Output: 'Mammal'
 console.log(anotherAnimal.speak()); // Output: 'I am a Mammal'
@@ -74,12 +76,19 @@ This syntactic sugar on top of ES6 enables developers to write cleaner and more 
 ## Features
 
 - Define Classes Without the Magic
+
   Keep your classes clean and straightforward without unnecessary complexity.
+
 - Ready-to-Go Global Object
+
   Start using glucose.js immediately with a global object that's easy to access and manage.
+
 - Lazy Install Any Property or Method
+
   Add properties or methods to your classes whenever you need them, even after instantiation.
+
 - Pre or Late Stage Mixins
+
   Flexibly compose your classes before or after they're defined, allowing for dynamic enhancements.
 
 ---
