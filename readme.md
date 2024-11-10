@@ -1,12 +1,12 @@
+<div align="center">
+
 # Glucose.js
 
-[![npm version](https://img.shields.io/npm/v/poly-structure.svg)](https://www.npmjs.com/package/poly-structure)
-[![Build Status](https://img.shields.io/travis/yourusername/poly-structure.svg)](https://travis-ci.com/yourusername/poly-structure)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Late-stage class augmentation and property injection.
 
-*A dynamic JavaScript library for late-stage class augmentation and property injection.*
+</div>
 
----
+`Glucose.js` is an ES6 suite of tools to help withclass composition and object management. Streamline creating and managing classes, methods, and properties, injecting functions dynamically.
 
 ## Table of Contents
 
@@ -67,25 +67,20 @@ console.log(anotherAnimal.type);    // Output: 'Mammal'
 console.log(anotherAnimal.speak()); // Output: 'I am a Mammal'
 ```
 
----
-
-
-## Introduction
-
-**glucose.js** is an ES6 utility that elegantly handles class composition and object management. Streamline creating and managing classes, methods, and properties, injecting functions dynamically.
-
 This syntactic sugar on top of ES6 enables developers to write cleaner and more flexible code while leveraging late dynamic imports.
-
-**glucose.js** offers a clever and classy integration that allows you to install properties before and after a class exists. Enhance classes dynamically
 
 ---
 
 ## Features
 
-- **Define Classes Without the Magic**: Keep your classes clean and straightforward without unnecessary complexity.
-- **Ready-to-Go Global Object**: Start using glucose.js immediately with a global object that's easy to access and manage.
-- **Lazy Install Any Property or Method**: Add properties or methods to your classes whenever you need them, even after instantiation.
-- **Pre or Late Stage Mixins**: Flexibly compose your classes before or after they're defined, allowing for dynamic enhancements.
+- Define Classes Without the Magic
+  Keep your classes clean and straightforward without unnecessary complexity.
+- Ready-to-Go Global Object
+  Start using glucose.js immediately with a global object that's easy to access and manage.
+- Lazy Install Any Property or Method
+  Add properties or methods to your classes whenever you need them, even after instantiation.
+- Pre or Late Stage Mixins
+  Flexibly compose your classes before or after they're defined, allowing for dynamic enhancements.
 
 ---
 
@@ -98,19 +93,21 @@ To get started, include the assets within your scope or page:
 ```
 
 
-This installs an object with a range of functions, conveniently using the `name=mylib` to define the global object name:
+This installs an object with a range of functions, conveniently using the `name` to define the global object:
 
 ```js
 window.mylib
 
 // Tools available in `head`
-window.mylib.head.mixin(...)
+mylib.head.install(...)
+mylib.head.mixin(...)
+mylib.head.installFunctions(...)
 ```
 
 
 ## Getting Started
 
-We use standard ES6 classes for our code:
+For our code, we use standard ES6 classes
 
 ```js
 class Being {
@@ -120,14 +117,18 @@ class Being {
 class Human extends Being {}
 ```
 
-We can store this class in our named library (called `mylib` from above)
+Store the class in the global object (e.g. `mylib` from above)
 
 ```js
 /* _install_ the class in our library. */
 mylib.head.install(Human)
 ```
 
-It's placed in your lib: `myLib.Human` - and we can target it for mixins
+The class is available in your library object `myLib.Human`.
+
+### Adding Mixins
+
+Target `Human` class and adds functionality
 
 ```js
 /* from above
@@ -135,7 +136,7 @@ It's placed in your lib: `myLib.Human` - and we can target it for mixins
 class Human {};
 */
 
-/* Some late stage mixin */
+/* late stage mixin */
 mylib.head.mixin('Human', {
     frogCount: {
         value: 2,
@@ -161,9 +162,18 @@ console.log(h.ownsFrog) // 4
 console.log(h.ownsFrog) // 5
 ```
 
-## Larger Example
+## Late Stage Mixin
 
-Here we create a class called `A`, instantiate it (as `a`) - then install.
+We can apply a `head.mixin()` before, or after the target class is created.
+
+Here we
+
++ Create a class called `A`,
++ Instantiate it (as `a`, and `a2`)
++ install a mixin: `hello` value
++ Create a new instance `a3`
+
+All instances of `A` will contain the `hello` mixin:
 
 ```js
 class A {
@@ -180,8 +190,8 @@ console.log(a.hello)
 console.log(a2.hello)
 // undefined
 
-/* Now we can set it up. */
-Glucose.head.install(A)
+/* Install it into our object. */
+Glucose.head.install(A)  // Found at: `Glucose.A`
 
 /* Install an addon after creation */
 Glucose.head.mixin('A', {
@@ -195,7 +205,7 @@ console.log(a.hello)
 console.log(a2.hello)
 // world
 
-/* And new stuff! */
+/* And new instances also apply. */
 let a3 = new A
 
 console.log(a3.hello)
@@ -206,6 +216,7 @@ console.log(a3.hello)
 ## Root Object Name
 
 You can provide a name for the root global object through any of the following
+
 
 
 #### `name` Attribute
